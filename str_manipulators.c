@@ -12,12 +12,12 @@ size_t _strcspn(const char *str, const char *reject)
 	const char *string1 = str, *string2;
 	size_t count = 0;
 
-	/* Iterate through the characters in 'str' */
+          /* Iterate through the characters in 'str' */
 	while (*string1)
 	{
 		string2 = reject; /* Set string2 to the beginning of */
 							/*reject for each character in 'str' */
-		/* Iterate through the characters in 'reject' */
+                /* Iterate through the characters in 'reject' */
 		while (*string2)
 		{
 			/* Incase the characters match, return the count */
@@ -31,15 +31,16 @@ size_t _strcspn(const char *str, const char *reject)
 	}
 
 	return (count); /* Return the final count,*/
-		/* which is the length of the final segment of the initial string */
+                   /* which is the length of the final segment of the initial string */
 }
 
 /**
   *str_compare - To compare two strings
   *@string1: First string to be compared
   *@string2: Second string to be compared
-	*Return: 1 if strings matches, 0 otherwise
-	*/
+  *Return: 1 if strings matches, 0 otherwise
+  */
+
 int str_compare(const char *string1, const char *string2)
 {
 	if (string1 == NULL || string2 == NULL)
