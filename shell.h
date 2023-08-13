@@ -22,4 +22,7 @@ int execute_command(char *command, char *argv[]);
 size_t _strcspn(const char *str, const char *reject);
 int str_compare(const char *string1, const char *string2);
 
+/* End_Of_File */
+int readAndPrintFile(const char *filename);
+
 #endif /* SHELL_H */
