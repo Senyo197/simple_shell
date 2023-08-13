@@ -24,7 +24,7 @@ int readAndPrintFile(const char *filename)
 	while (!feof(file))
 	{
 		if (fgets(line, sizeof(line), file) != NULL)
-			prinft("%s", line);
+			printf("%s", line);
 	}
 
 	fclose(file);
