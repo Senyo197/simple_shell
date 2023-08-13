@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 		read_command(command);
 		remove_newline(command);
 
-		if (str_compare(command, "exit") == 0)
+		if (str_compare(command, "exit") == 1)
 			break;
 
 		execute_command(command, argv);

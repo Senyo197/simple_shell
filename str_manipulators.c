@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
-  _strcspn - Calculates the initial segment of the string
+ * _strcspn - Calculates the initial segment of the string
   *@str: string to be calculated
   *@reject: specifies characters
   *that are not allowed to appear in the initial segment
@@ -12,12 +12,13 @@ size_t _strcspn(const char *str, const char *reject)
 	const char *string1 = str, *string2;
 	size_t count = 0;
 
-          /* Iterate through the characters in 'str' */
+	/* Iterate through the characters in 'str' */
 	while (*string1)
 	{
 		string2 = reject; /* Set string2 to the beginning of */
 							/*reject for each character in 'str' */
-                /* Iterate through the characters in 'reject' */
+
+		/* Iterate through the characters in 'reject' */
 		while (*string2)
 		{
 			/* Incase the characters match, return the count */
@@ -31,8 +32,9 @@ size_t _strcspn(const char *str, const char *reject)
 	}
 
 	return (count); /* Return the final count,*/
-                   /* which is the length of the final segment of the initial string */
+	/* which is the length of the final segment of the initial string */
 }
+
 
 /**
   *str_compare - To compare two strings
