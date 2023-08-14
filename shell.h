@@ -8,7 +8,7 @@
 #include <stdio.h>
 
 
-#define PROMPT ">> "
+#define PROMPT "#cisfun$ "
 #define MAX_COMMAND_LENGTH 100
 
 extern char **environ;

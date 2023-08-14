@@ -16,7 +16,7 @@ int execute_command(char *command, char *argv[])
 	{                /* Child process */
 		if (execve(command, argv, environ) == -1)
 		{       /* Execute the command */
-			perror("Error executing command");                         /* Print error message */
+			fprintf(stderr, "%s: No such file or directory\n", argv[0]);
 			_exit(1);  /* Exit the child process */
 		}
 	}
