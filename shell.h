@@ -13,6 +13,9 @@
 #define MAX_COMMAND_LENGTH 100
 #define MAX_ARGUMENTS 10
 
+#define MAX_WORDS 100
+#define MAX_WORD_LENGTH 50
+
 /* System Calls */
 extern char **environ;
 
@@ -34,4 +37,6 @@ int str_compare(const char *string1, const char *string2);
 /* End_Of_File */
 int readAndPrintFile(const char *filename);
 
+/* For parsing inputed line */
+void _parser(char *input);
 #endif /* SHELL_H */
