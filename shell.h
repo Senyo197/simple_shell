@@ -10,7 +10,7 @@
 
 /* MACROS */
 #define PROMPT "#cisfun$ "
-#define MAX_COMMAND_LENGTH 100
+#define MAX_COMMAND_LENGTH 1024
 #define MAX_ARGUMENTS 10
 
 #define MAX_WORDS 100
@@ -29,6 +29,7 @@ int main(int argc, char *argv[]);
 
 /* Functions to execute command */
 int execute_command(char *command, char *argv[]);
+int extract_arguments(char *command, char *argv[]);
 
 /* Functions to manipulate strings */
 size_t _strcspn(const char *str, const char *reject);
