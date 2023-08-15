@@ -34,8 +34,8 @@ int execute_command(char *command, char *argv[]);
 size_t _strcspn(const char *str, const char *reject);
 int str_compare(const char *string1, const char *string2);
 
-/* End_Of_File */
-int readAndPrintFile(const char *filename);
+/* System functions */
+int _feof(void);
 
 /* For parsing inputed line */
 void _parser(char *input);

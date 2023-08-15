@@ -6,17 +6,18 @@
   */
 void read_command(char *command)
 {
+	/* Check if the end of input is reached */
+	if (_feof())
+	{
+		printf("\n"); /* Print a new line */
+		/*to visually indicate end of input */
+		command[0] = '\0'; /* Clear the command buffer */
+		return;
+	}
+
 	if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
 	{/* Read user input */
-		if (feof(stdin))
-		{
-			printf("\n"); /* Print a new line */
-			/*to visually indicate end of input */
-		}
-		else
-		{
-			perror("fgets error"); /* Print error if fgets fails */
-		}
+		perror("fgets error"); /* Print error if fgets fails */
 	}
 }
 
