@@ -36,6 +36,9 @@ int str_compare(const char *string1, const char *string2);
 
 /* System functions */
 int _feof(void);
+int _fgetc(FILE *str);
+char *_fgets(char *str, int size, FILE *stream);
+int _ungetc(int c, FILE *str);
 
 /* For parsing inputed line */
 void _parser(char *input);
