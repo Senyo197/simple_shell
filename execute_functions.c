@@ -5,8 +5,7 @@
   *@argv: array of commands to be entered
   *Return: always 0
   */
-
-int execute_command(char *command, char *argv[])
+int execute_external_command(char *command, char *argv[])
 {
 	int status;
 
@@ -16,7 +15,7 @@ int execute_command(char *command, char *argv[])
 	{                /* Child process */
 		if (execve(command, argv, environ) == -1)
 		{       /* Execute the command */
-			fprintf(stderr, "%s: No such file or directory\n", argv[0]);
+			perror("execve error");
 			_exit(1);  /* Exit the child process */
 		}
 	}
