@@ -15,7 +15,7 @@ void read_command(char *command)
 		return;
 	}
 
-	if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
+	if (_fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
 	{/* Read user input */
 		perror("fgets error"); /* Print error if fgets fails */
 	}

@@ -19,47 +19,6 @@ int _feof(void)
 	}
 }
 
-/**
-  *_fgetc - function that reads a text line or a string
-  *         from the specified file
-  *@str: the text line to read
-  *Return: The next character from the stream,
-  *        or EOF if end-of-file or an error occurs
-  */
-
-int _fgetc(FILE *str)
-{
-              /* if there are characters in the unget buffer, retrieve and return one */
-	if (ungetc_index > 0)
-		return (ungetc_buffer[--ungetc_index]);
-
-	else
-	{
-		return (getchar()); /* If unget buffer is empty, read from standard input */
-	}
-}
-
-/**
-  *_ungetc - function that takes a single character and
-  *              shoves back onto an input stream
-  *
-  *@c: character to be pushed back
-  *@str: the pointer to the FILE structure
-  */
-
-int _ungetc(int c, FILE *str)
-{       /* If there's space in the unget buffer, add the character to it */
-	if (ungetc_index < MAX_UNGETC_BUFFER)
-	{
-		ungetc_buffer[ungetc_index++] = c;
-		return (c);
-	}
-
-	else
-	{
-		return (EOF); /*  Buffer is full, cannot unget more characters */
-	}
-}
 
 /**
   *_fgets - function that reads a line from a file stream
@@ -74,9 +33,10 @@ int _ungetc(int c, FILE *str)
 
 char *_fgets(char *str, int size, FILE *stream)
 {
+	char my_read_buffer[MAX_COMMAND_LENGTH];
 	int i;
-	int read_BufferSize;
-	int read_BufferIndex;
+	int read_BufferSize = 0;
+	int read_BufferIndex = 0;
 	char c;
             /* if there's space in the unget buffer, add the character to it */
 	if (read_BufferIndex >= read_BufferSize)
