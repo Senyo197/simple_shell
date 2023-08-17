@@ -44,6 +44,8 @@ int _fgetc(FILE *str);
 char *_fgets(char *str, int size, FILE *stream);
 int _ungetc(int c, FILE *str);
 
-/* For parsing inputed line */
+/* Parse function  */
 void _parser(char *input);
+int parse_arguments(char *command, char *args[]);
+
 #endif /* SHELL_H */
