@@ -2,6 +2,7 @@
 #define SHELL_H
 
 /* System header file */
+#include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
 #include <unistd.h>
@@ -12,6 +13,7 @@
 #define PROMPT "#cisfun$ "
 #define MAX_COMMAND_LENGTH 1024
 #define MAX_ARGUMENTS 10
+#define MAX_UNGETC_BUFFER 1
 
 #define MAX_WORDS 100
 #define MAX_WORD_LENGTH 50
@@ -30,6 +32,7 @@ int main(int argc, char *argv[]);
 /* Functions to execute command */
 int execute_command(char *command, char *argv[]);
 int extract_arguments(char *command, char *argv[]);
+int search_executable(char *command, char *executable);
 
 /* Functions to manipulate strings */
 size_t _strcspn(const char *str, const char *reject);

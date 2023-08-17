@@ -9,27 +9,34 @@
 int execute_command(char *command, char *argv[])
 {
 	int status;
+	char executable[MAX_COMMAND_LENGTH];
 
-	pid_t child_pid = fork();  /* Create a child process */
+	pid_t child_pid;
 
-	if (child_pid == 0)
-	{                /* Child process */
-		if (execve(command, argv, environ) == -1)
-		{       /* Execute the command */
-			fprintf(stderr, "%s: No such file or directory\n", argv[0]);
-			_exit(1);  /* Exit the child process */
-		}
-	}
-	else if (child_pid > 0)
-	{  /* Parent process */
-		if (waitpid(child_pid, &status, 0) == -1)
-		{  /* Wait for child process */
-			perror("waitpid error");  /* Print error if waitpid fails */
-		}
-	}
-	else
+	if (search_executable(command, executable))
 	{
-		perror("Fork error");  /* Print error if fork fails */
+		child_pid = fork();  /* Create a child process */
+
+		if (child_pid == 0)
+		{                /* Child process */
+			if (execve(executable, argv, environ) == -1)
+			{       /* Execute the command */
+				perror("execve error");
+				_exit(1);  /* Exit the child process */
+			}
+		}
+		else if (child_pid > 0)
+		{  /* Parent process */
+			if (waitpid(child_pid, &status, 0) == -1)
+			{  /* Wait for child process */
+				perror("waitpid error");  /* Print error if waitpid fails */
+			}
+		}
+
+		else
+		{
+			perror("Fork error");  /* Print error if fork fails */
+		}
 	}
 
 	return (0);
@@ -81,4 +88,46 @@ int extract_arguments(char *command, char *args[])
 	args[arg_count] = NULL;
 
 	return (arg_count); /* Return the total number of arguments */
+}
+
+
+int search_executable(char *command, char *executable)
+{
+	char *path = getenv("PATH");
+	char *start, *end;
+	size_t dir_len, command_len;
+
+	if (path == NULL)
+	{
+		perror("NO PATH variable set");
+		return (0);
+	}
+
+	start = path;
+	while (*start != '\0')
+	{
+		end = strchr(start, ':');
+		if (end == NULL)
+			end = start + strlen(start);
+
+
+		dir_len = (size_t)(end - start);
+		command_len = strlen(command);
+		if (dir_len + 1 + command_len + 1 <= MAX_COMMAND_LENGTH)
+		{
+			snprintf(executable, MAX_COMMAND_LENGTH, "%.*s/%s",
+					(int)dir_len, start, command);
+
+			if (access(executable, X_OK) == 0)
+				return (1);
+		}
+
+		if (*end == '\0')
+			end = start + dir_len;
+
+		start = end + 1;
+	}
+
+	fprintf(stderr, "Command not found: %s\n", command);
+	return (0);
 }
