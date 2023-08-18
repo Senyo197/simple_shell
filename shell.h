@@ -48,5 +48,5 @@ int parse_arguments(char *command, char *args[]);
 void print_prompt(void);
 int main(int argc, char *argv[]);
 
-
+int execute_builtin(char *command);
 #endif /* SHELL_H */
