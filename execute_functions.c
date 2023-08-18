@@ -1,11 +1,12 @@
 #include  "shell.h"
+
 /**
   * execute_command - function that exe a command
   *@command: command to be entered
   *@argv: array of commands to be entered
   *Return: always 0
   */
-int execute_external_command(char *command, char *argv[])
+int execute_command_line(char *command, char *argv[])
 {
 	int status;
 
@@ -34,6 +35,53 @@ int execute_external_command(char *command, char *argv[])
 	return (0);
 }
 
+
+int search_execute(char *command, char *argv[])
+{
+	char full_path[MAX_COMMAND_LENGTH];
+	char *path_env = getenv("PATH"), *path;
+	if (path_env == NULL)
+	{
+		fprintf(stderr, "Path variable not set\n");
+		return (1);
+	}
+
+	path = strtok(path_env, ":");
+	while (path != NULL)
+	{
+		snprintf(full_path, sizeof(full_path), "%s/%s", path, command);
+
+		if (access(full_path, X_OK) == 0)
+		{
+			execute_command_line(full_path, argv);
+			return (0);
+		}
+
+		path = strtok(NULL, ":");
+	}
+
+	return (1);
+}
+
+
+int execute_command(char *command, char *argv[])
+{
+	if (strchr(command, '/') != NULL)
+	{
+		execute_command_line(command, argv);
+	}
+	else
+	{
+		if (search_execute(command, argv) != 0)
+		{
+			fprintf(stderr, "%s: No such file or directory\n", command);
+			return (1);
+		}
+	}
+
+	return (0);
+}
+
 /**
   *parse_arguments - function that parse a command string into
   *                  arguments
@@ -55,13 +103,8 @@ int parse_arguments(char *command, char *args[])
 	{
 		remove_newline(token);
 		args[arg_count++] = token;
-		token = strchr(token, ' ');
+		token = strtok(NULL, " ");
 
-		if (token != NULL)
-		{
-			*token != '\0';
-			token++
-		}
 	}
 
 	args[arg_count] = NULL;

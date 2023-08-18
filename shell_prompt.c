@@ -17,10 +17,10 @@ void print_prompt(void)
   */
 int main(int argc, char *argv[])
 {
-/*	char *args[MAX_ARGUMENTS];*/
-/*	char executable[MAX_COMMAND_LENGTH];*/
+	char *args[MAX_ARGUMENTS];
 	char command[MAX_COMMAND_LENGTH];
-/*	int arg_count;*/
+
+	int arg_count;
 
 	(void)argc;
 	(void)argv;
@@ -35,8 +35,9 @@ int main(int argc, char *argv[])
 		if (str_compare(command, "exit") == 1)
 			break;
 
-		execute_command(command, argv);
-
+		arg_count = parse_arguments(command, args);
+		if (arg_count > 0)
+			execute_command(args[0], args);
 	}
 
 	return (0); /* Return 0 to indicate successful execution */

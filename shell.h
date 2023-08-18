@@ -10,7 +10,7 @@
 #include <stdio.h>
 
 /* MACROS */
-#define PROMPT "#cisfun$ "
+#define PROMPT ":) "
 #define MAX_COMMAND_LENGTH 1024
 #define MAX_ARGUMENTS 10
 #define MAX_UNGETC_BUFFER 1
@@ -25,14 +25,10 @@ extern char **environ;
 void remove_newline(char *str);
 void read_command(char *command);
 
-/* Functions to print the prompt */
-void print_prompt(void);
-int main(int argc, char *argv[]);
-
 /* Functions to execute command */
+int execute_command_line(char *command, char *argv[]);
+int search_execute(char *command, char *argv[]);
 int execute_command(char *command, char *argv[]);
-int extract_arguments(char *command, char *argv[]);
-int search_executable(char *command, char *executable);
 
 /* Functions to manipulate strings */
 size_t _strcspn(const char *str, const char *reject);
@@ -47,5 +43,10 @@ int _ungetc(int c, FILE *str);
 /* Parse function  */
 void _parser(char *input);
 int parse_arguments(char *command, char *args[]);
+
+/* Functions to print the prompt */
+void print_prompt(void);
+int main(int argc, char *argv[]);
+
 
 #endif /* SHELL_H */
