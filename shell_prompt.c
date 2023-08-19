@@ -38,6 +38,8 @@ int main(int argc, char *argv[])
 		arg_count = parse_arguments(command, args);
 		if (arg_count > 0)
 			execute_command(args[0], args);
+
+		free_arguments(args, arg_count);
 	}
 
 	return (0); /* Return 0 to indicate successful execution */

@@ -39,7 +39,16 @@ int execute_command_line(char *command, char *argv[])
 int search_execute(char *command, char *argv[])
 {
 	char full_path[MAX_COMMAND_LENGTH];
-	char *path_env = getenv("PATH"), *path;
+	char *path_env, *path;
+
+	if (access(command, X_OK) == 0)
+	{
+		printf("Executing: %s\n", command);
+		execute_command_line(command, argv);
+		return (0);
+	}
+
+	path_env = getenv("PATH");
 	if (path_env == NULL)
 	{
 		fprintf(stderr, "Path variable not set\n");
@@ -53,6 +62,7 @@ int search_execute(char *command, char *argv[])
 
 		if (access(full_path, X_OK) == 0)
 		{
+			printf("Executing: %s\n", full_path);
 			execute_command_line(full_path, argv);
 			return (0);
 		}
@@ -82,32 +92,3 @@ int execute_command(char *command, char *argv[])
 	return (0);
 }
 
-/**
-  *parse_arguments - function that parse a command string into
-  *                  arguments
-  *
-  *@command: the command to be parsed
-  *@args: an array of store the parsed arguments
-  *Return: always 0
-  */
-
-int parse_arguments(char *command, char *args[])
-{
-	char *token;
-	int arg_count;
-
-	arg_count = 0;
-	token = strtok(command, " ");
-
-	while (token != NULL && arg_count < MAX_ARGUMENTS - 1)
-	{
-		remove_newline(token);
-		args[arg_count++] = token;
-		token = strtok(NULL, " ");
-
-	}
-
-	args[arg_count] = NULL;
-
-	return (arg_count);
-}

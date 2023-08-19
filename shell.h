@@ -41,8 +41,9 @@ char *_fgets(char *str, int size, FILE *stream);
 int _ungetc(int c, FILE *str);
 
 /* Parse function  */
-void _parser(char *input);
 int parse_arguments(char *command, char *args[]);
+char *allocate_and_copy(const char *source);
+void free_arguments(char *argv[], int count);
 
 /* Functions to print the prompt */
 void print_prompt(void);
