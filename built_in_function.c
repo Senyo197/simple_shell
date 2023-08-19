@@ -10,10 +10,11 @@
 
 int execute_builtin(char *command)
 {
-	char **env_ptr = environ;
+	char **env_ptr;
 
-	if (strcmp(command, "env") == 0)
+	if(strcmp(command, "env") == 0)
 	{
+		env_ptr = environ;
 		while (*env_ptr != NULL)
 		{
 			printf("%s\n", *env_ptr);

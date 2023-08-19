@@ -41,13 +41,6 @@ int search_execute(char *command, char *argv[])
 	char full_path[MAX_COMMAND_LENGTH];
 	char *path_env, *path;
 
-	if (access(command, X_OK) == 0)
-	{
-		printf("Executing: %s\n", command);
-		execute_command_line(command, argv);
-		return (0);
-	}
-
 	path_env = getenv("PATH");
 	if (path_env == NULL)
 	{
@@ -62,7 +55,6 @@ int search_execute(char *command, char *argv[])
 
 		if (access(full_path, X_OK) == 0)
 		{
-			printf("Executing: %s\n", full_path);
 			execute_command_line(full_path, argv);
 			return (0);
 		}
@@ -70,6 +62,7 @@ int search_execute(char *command, char *argv[])
 		path = strtok(NULL, ":");
 	}
 
+	fprintf(stderr, "%s: No such file or directory\n", command);
 	return (1);
 }
 
@@ -83,10 +76,7 @@ int execute_command(char *command, char *argv[])
 	else
 	{
 		if (search_execute(command, argv) != 0)
-		{
-			fprintf(stderr, "%s: No such file or directory\n", command);
 			return (1);
-		}
 	}
 
 	return (0);
