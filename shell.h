@@ -49,4 +49,5 @@ void print_prompt(void);
 int main(int argc, char *argv[]);
 
 int execute_builtin(char *command);
+ssize_t read_more(char **lineptr, size_t *n, FILE *stream);
 #endif /* SHELL_H */
