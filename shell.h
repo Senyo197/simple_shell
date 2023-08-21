@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <stdio.h>
+#include <errno.h>
 
 /* MACROS */
 #define PROMPT ":) "
@@ -35,6 +36,8 @@ int execute_command(char *command, char *argv[], char *path_env);
 /* Functions to manipulate strings */
 size_t _strcspn(const char *str, const char *reject);
 int str_compare(const char *string1, const char *string2);
+size_t _strlen(const char *str);
+char *_strchr(char *s, char c);
 
 /* System functions */
 int _feof(void);

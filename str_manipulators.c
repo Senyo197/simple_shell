@@ -63,3 +63,45 @@ int str_compare(const char *string1, const char *string2)
 
 	return (0); /* Return 0 (FALSE), if the strings are different */
 }
+
+/**
+  *_strlen - function that calculates the length of a string
+  *@str: the string
+  *Return: The length of the string
+  */
+
+size_t _strlen(const char *str)
+{
+	size_t len = 0;
+
+	while (str[len] != '\0')
+	{
+		len++;
+	}
+
+	return (len);
+}
+
+/**
+  *_strchr - function that locate a character in a string
+  *
+  *@c: The character to be located
+  *@s: Pointer to the string to be searched
+  *Return: Pointer to the first occurrence of the character c
+  *        or NULL if the character is not found
+  */
+
+char *_strchr(char *s, char c)
+{
+	while (*s != '\0')
+	{
+		if (*s == c)
+			return (s);
+		s++;
+	}
+
+	if (*s == c)
+		return (s);
+
+	return (NULL);
+}

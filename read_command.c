@@ -1,5 +1,14 @@
+#include "shell.h"
 
-
+/**
+  *_getline - function that reads a line from a file descriptor
+  *
+  *@buffer: Pointer to the buffer where the line will be stored
+  *@fd: File descriptor to read from
+  *@size: Maximum number of bytes to read
+  *
+  *Return: On success, the number of bytes read
+  */
 
 ssize_t _getline(char *buffer, size_t size, int fd)
 {
