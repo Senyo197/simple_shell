@@ -4,8 +4,8 @@
   *print_prompt - print the prompt command
   */
 void print_prompt(void)
-{
-	printf("%s", PROMPT); /* Print the command prompt */
+{/* Print the command prompt */
+	write(STDOUT_FILENO, PROMPT, sizeof(PROMPT) - 1);
 }
 
 
@@ -19,11 +19,18 @@ int main(int argc, char *argv[])
 {
 	char *args[MAX_ARGUMENTS];
 	char command[MAX_COMMAND_LENGTH];
+	char *path_env = getenv("PATH");
 
 	int arg_count;
 
 	(void)argc;
 	(void)argv;
+
+	if (path_env == NULL)
+	{
+		write(STDERR_FILENO, "PATH environment variable not set\n", 33);
+		return (1);
+	}
 
 	while (1)
 	{
@@ -41,7 +48,7 @@ int main(int argc, char *argv[])
 			arg_count = parse_arguments(command, args);
 
 			if (arg_count > 0)
-				execute_command(args[0], args);
+				execute_command(args[0], args, path_env);
 		}
 	}
 

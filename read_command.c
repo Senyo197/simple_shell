@@ -1,24 +1,38 @@
 #include "shell.h"
 
+
+ssize_t _getline(char *buffer, size_t size, int fd)
+{
+	size_t pos = 0;
+	char chr;
+
+	while (read(fd, &chr, 1) > 0)
+	{
+		if (pos >= size - 1 || chr == '\n')
+			break;
+		buffer[pos++] = chr;
+	}
+	buffer[pos] = '\0';
+	return (pos);
+}
+
+
 /**
   *read_command - read in command from user
   *@command: command to be read
   */
 void read_command(char *command)
 {
-	/* Check if the end of input is reached */
-	if (_feof())
-	{
-		printf("\n"); /* Print a new line */
-		/*to visually indicate end of input */
-		command[0] = '\0'; /* Clear the command buffer */
-		return;
-	}
+	char line_buffer[BUFFER_SIZE];
+	ssize_t read_bytes = _getline(line_buffer, sizeof(line_buffer),
+			STDIN_FILENO);
 
-	if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL)
-	{/* Read user input */
-		perror("fgets error"); /* Print error if fgets fails */
-	}
+	if (read_bytes == -1)
+		write(STDERR_FILENO, "Getline Error\n", 14);
+	else if (read_bytes >= MAX_COMMAND_LENGTH)
+		write(STDERR_FILENO, "Command not found\n", 18);
+	else
+		strncpy(command, line_buffer, MAX_COMMAND_LENGTH);
 }
 
 

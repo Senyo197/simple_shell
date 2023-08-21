@@ -16,7 +16,7 @@ int execute_command_line(char *command, char *argv[])
 	{                /* Child process */
 		if (execve(command, argv, environ) == -1)
 		{       /* Execute the command */
-			perror("execve error");
+			write(STDERR_FILENO, "execve error\n", 13);
 			_exit(1);  /* Exit the child process */
 		}
 	}
@@ -24,30 +24,30 @@ int execute_command_line(char *command, char *argv[])
 	{  /* Parent process */
 		if (waitpid(child_pid, &status, 0) == -1)
 		{  /* Wait for child process */
-			perror("waitpid error");  /* Print error if waitpid fails */
+			write(STDERR_FILENO, "waitpid error\n", 14);  /* Print error if waitpid fails */
 		}
 	}
 	else
 	{
-		perror("Fork error");  /* Print error if fork fails */
+		write(STDERR_FILENO, "Fork error\n", 11);  /* Print error if fork fails */
 	}
 
 	return (0);
 }
 
 
-int search_execute(char *command, char *argv[])
+int search_execute(char *command, char *argv[], char *path_env)
 {
 	char full_path[MAX_COMMAND_LENGTH];
-	char *path_env, *path;
+	char *path;
 
-	path_env = getenv("PATH");
-	if (path_env == NULL)
-	{
-		fprintf(stderr, "Path variable not set\n");
-		return (1);
-	}
-
+/**	path_env = getenv("PATH");
+*	if (path_env == NULL)
+*	{
+*		write(STDERR_FILENO, "Path environment variable not set\n", 33);
+*		return (1);
+*	}
+*/
 	path = strtok(path_env, ":");
 	while (path != NULL)
 	{
@@ -62,12 +62,12 @@ int search_execute(char *command, char *argv[])
 		path = strtok(NULL, ":");
 	}
 
-	fprintf(stderr, "%s: No such file or directory\n", command);
+	write(STDERR_FILENO, "No such file or directory\n", 26);
 	return (1);
 }
 
 
-int execute_command(char *command, char *argv[])
+int execute_command(char *command, char *argv[], char *path_env)
 {
 	if (strchr(command, '/') != NULL)
 	{
@@ -75,8 +75,7 @@ int execute_command(char *command, char *argv[])
 	}
 	else
 	{
-		if (search_execute(command, argv) != 0)
-			return (1);
+		search_execute(command, argv, path_env);
 	}
 
 	return (0);
