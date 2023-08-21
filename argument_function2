@@ -1,0 +1,85 @@
+#include "shell.h"
+/**
+  *free_arguments - function that frees memory allocated for
+  *            an array of strings
+  *@args: the array of strings to be freed
+  */
+void free_arguments(char *args[], int count)
+{
+	int i;
+
+	for (i = 0; i < count; i++)
+		free(args[i]);
+
+}
+
+
+/**
+  *allocate_and_copy - function that allocates memory for a new
+  *       string and copies the content from the source string
+  *
+  *@source: source string to be copied
+  *
+  *Return: On success, a pointer to the new string is returned.
+  *         On failure, NULL is returned
+  */
+char *allocate_and_copy(const char *source)
+{
+	char *destination;
+
+	destination = (char *)malloc(strlen(source) + 1);
+
+	if (destination == NULL)
+		perror("malloc error");
+
+	else
+		strcpy(destination, source);
+
+	return (destination);
+}
+
+
+/**
+  *parse_arguments - function that parse a command string into
+  *                  arguments
+  *
+  *@command: the command to be parsed
+  *@args: an array of store the parsed arguments
+  *Return: always 0
+  */
+int parse_arguments(char *command, char *args[])
+{
+	char *token, quote_char, *end_token;
+	int arg_count;
+
+	arg_count = 0;
+	token = strtok(command, " ");
+
+	while (token != NULL && arg_count < MAX_ARGUMENTS - 1)
+	{
+		if (token[0] == '"' || token[0] == '\'')
+		{
+			quote_char = token[0];
+			end_token = token = strtok(NULL, quote_char == '"' ? "\"" : "'");
+			if (end_token == NULL)
+			{
+				fprintf(stderr, "Unmatched %c\n", quote_char);
+				free_arguments(args, arg_count);
+				return (-1);
+			}
+			args[arg_count++] = allocate_and_copy(token);
+			args[arg_count++] = allocate_and_copy(end_token);
+		}
+		else
+		{
+			remove_newline(token);
+			args[arg_count++] = allocate_and_copy(token);
+		}
+		token = strtok(NULL, " ");
+
+	}
+
+	args[arg_count] = NULL;
+
+	return (arg_count);
+}
