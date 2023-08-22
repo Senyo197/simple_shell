@@ -1,31 +1,19 @@
 #include "shell.h"
 
 /**
-  *_feof - a function that indicates end of file
-  *Return: 1 if the operation was successful, 0 if otherwise
+  *_snprintf - Function for formatting and writting text to a character array
+  *@str: Pointer to the character array
+  *@size: Maximum number of characters to be written
+  *@format: Specifies how the data should be formatted
+  *Return: The number of characters written
   */
-
-int _feof(void)
-{
-	int c = fgetc(stdin); /* Pass the user input to c */
-
-	/* Checks if the c is end of file */
-	if (c == EOF)
-		return (1); /* Returns 1 if the c is end of file */
-	else
-	{
-		ungetc(c, stdin);/* Put the c in the stream */
-		return (0); /* Input is not at the end */
-	}
-}
-
-
 int _snprintf(char *str, ssize_t size, const char *format, ...)
 {
 	int written = 0, i = 0, j;
 	char *arg_str;
 
 	va_list args;
+
 	va_start(args, format);
 
 	if (str == NULL || format == NULL || size == 0)
