@@ -41,14 +41,7 @@ int search_execute(char *command, char *argv[], char *path_env)
 	char full_path[MAX_COMMAND_LENGTH];
 	char *path;
 
-/**	path_env = getenv("PATH");
-*	if (path_env == NULL)
-*	{
-*		write(STDERR_FILENO, "Path environment variable not set\n", 33);
-*		return (1);
-*	}
-*/
-	path = strtok(path_env, ":");
+	path = _strtok(path_env, ":");
 	while (path != NULL)
 	{
 		snprintf(full_path, sizeof(full_path), "%s/%s", path, command);
@@ -59,7 +52,7 @@ int search_execute(char *command, char *argv[], char *path_env)
 			return (0);
 		}
 
-		path = strtok(NULL, ":");
+		path = _strtok(NULL, ":");
 	}
 
 	write(STDERR_FILENO, "No such file or directory\n", 26);

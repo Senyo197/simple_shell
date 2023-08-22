@@ -35,6 +35,7 @@ int execute_command(char *command, char *argv[], char *path_env);
 /* Functions to manipulate strings */
 size_t _strcspn(const char *str, const char *reject);
 int str_compare(const char *string1, const char *string2);
+char *_strtok(char *str, const char *delim);
 
 /* System functions */
 int _feof(void);
@@ -43,7 +44,7 @@ char *_fgets(char *str, int size, FILE *stream);
 int _ungetc(int c, FILE *str);
 
 /* Parse function  */
-int parse_arguments(char *command, char *args[]);
+void parse_arguments(char *command, char *args[]);
 char *allocate_and_copy(const char *source);
 void free_arguments(char *argv[], int count);
 

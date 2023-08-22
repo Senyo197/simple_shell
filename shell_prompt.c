@@ -21,7 +21,6 @@ int main(int argc, char *argv[])
 	char command[MAX_COMMAND_LENGTH];
 	char *path_env = getenv("PATH");
 
-	int arg_count;
 
 	(void)argc;
 	(void)argv;
@@ -41,15 +40,16 @@ int main(int argc, char *argv[])
 
 		if (str_compare(command, "exit") == 1)
 			break;
-
-		if (!execute_builtin(command))
-		{
-
-			arg_count = parse_arguments(command, args);
-
-			if (arg_count > 0)
-				execute_command(args[0], args, path_env);
-		}
+		parse_arguments(command, args);
+/**
+*		if (!execute_builtin(command))
+*		{
+*
+*		arg_count = parse_arguments(command, args);
+*/
+		if (args[0] != NULL)
+			execute_command(args[0], args, path_env);
+/*		}*/
 	}
 
 	return (0); /* Return 0 to indicate successful execution */
