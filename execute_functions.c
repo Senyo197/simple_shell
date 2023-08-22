@@ -62,9 +62,12 @@ int search_execute(char *command, char *argv[], char *path_env)
 
 int execute_command(char *command, char *argv[], char *path_env)
 {
-	if (strchr(command, '/') != NULL)
+	if (_strchr(command, '/') != NULL)
 	{
-		execute_command_line(command, argv);
+		if (access(command, X_OK) == 0)
+			execute_command_line(command, argv);
+		else
+			write(STDERR_FILENO, "Command not found or not executable\n", 36);
 	}
 	else
 	{

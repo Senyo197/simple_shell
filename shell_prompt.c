@@ -41,15 +41,12 @@ int main(int argc, char *argv[])
 		if (str_compare(command, "exit") == 1)
 			break;
 		parse_arguments(command, args);
-/**
-*		if (!execute_builtin(command))
-*		{
-*
-*		arg_count = parse_arguments(command, args);
-*/
+
 		if (args[0] != NULL)
-			execute_command(args[0], args, path_env);
-/*		}*/
+		{
+			if (execute_builtin(args[0], args) == -1)
+				execute_command(args[0], args, path_env);
+		}
 	}
 
 	return (0); /* Return 0 to indicate successful execution */

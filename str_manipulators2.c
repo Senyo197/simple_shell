@@ -18,7 +18,7 @@ char *_strtok(char *str, const char *delim)
 		return (NULL);
 	}
 
-	end = start + strcspn(start, delim);
+	end = start + _strcspn(start, delim);
 	if (*end == '\0')
 	{
 		last = NULL;
