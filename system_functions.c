@@ -43,3 +43,28 @@ int _snprintf(char *str, ssize_t size, const char *format, ...)
 	va_end(args);
 	return (written);
 }
+
+
+/**
+  *_getenv - Function to get the environment variables to execute
+  *@name: name of the environment variable
+  *Return: nothing
+  */
+char *_getenv(const char *name)
+{
+	size_t name_len;
+	char **env;
+
+	if (name == NULL || environ == NULL)
+		return (NULL);
+
+	name_len = _strlen(name);
+
+	for (env = environ; *env != NULL; env++)
+	{
+		if (_strncmp(*env, name, name_len) == 0 && (*env)[name_len] == '=')
+			return (&(*env)[name_len + 1]);
+	}
+
+	return (NULL);
+}

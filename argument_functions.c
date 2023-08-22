@@ -12,13 +12,7 @@
 void parse_arguments(char *command, char *args[])
 {
 	int arg_count = 0;
-	char command_copy[MAX_COMMAND_LENGTH];
 	char *token;
-
-	strncpy(command_copy, command, sizeof(command_copy));
-
-	arg_count = 0;
-	memset(args, 0, sizeof(char *) * MAX_ARGUMENTS);
 
 	token = _strtok(command, " ");
 

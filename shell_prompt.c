@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 {
 	char *args[MAX_ARGUMENTS];
 	char command[MAX_COMMAND_LENGTH];
-	char *path_env = getenv("PATH");
+	char *path_env = _getenv("PATH");
 
 
 	(void)argc;
