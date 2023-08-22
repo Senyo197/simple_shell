@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <stdio.h>
+#include <errno.h>
 
 /* MACROS */
 #define PROMPT ":) "
@@ -35,7 +36,12 @@ int execute_command(char *command, char *argv[], char *path_env);
 /* Functions to manipulate strings */
 size_t _strcspn(const char *str, const char *reject);
 int str_compare(const char *string1, const char *string2);
+<<<<<<< HEAD
 char *_strtok(char *str, const char *delim);
+=======
+size_t _strlen(const char *str);
+char *_strchr(char *s, char c);
+>>>>>>> e96498d49fa214c77c32a278e6752cebb8ee75cb
 
 /* System functions */
 int _feof(void);
@@ -53,4 +59,5 @@ void print_prompt(void);
 int main(int argc, char *argv[]);
 
 int execute_builtin(char *command);
+ssize_t read_more(char **lineptr, size_t *n, FILE *stream);
 #endif /* SHELL_H */
