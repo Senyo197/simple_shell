@@ -2,6 +2,7 @@
 #define SHELL_H
 
 /* System header file */
+#include <stdarg.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
@@ -41,6 +42,7 @@ size_t _strlen(const char *str);
 char *_strchr(char *s, char c);
 
 /* System functions */
+int _snprintf(char *str, ssize_t size, const char *format, ...);
 int _feof(void);
 int _fgetc(FILE *str);
 char *_fgets(char *str, int size, FILE *stream);

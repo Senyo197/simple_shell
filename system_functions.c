@@ -20,44 +20,38 @@ int _feof(void)
 }
 
 
-/**
-  *_fgets - function that reads a line from a file stream
-  *
-  *@string: the pointer to the buffer where the line will be stored
-  *@size: Maximum number of characters to read
-  *@stream: pointer to file stream to read from
-  *
-  *Return: On success, returns the string, If no characters are read and
-  *         EOF is reached, or if an error occurs, returns NULL
-  */
-
-char *_fgets(char *str, int size, FILE *stream)
+int _snprintf(char *str, ssize_t size, const char *format, ...)
 {
-	char my_read_buffer[MAX_COMMAND_LENGTH];
-	int i;
-	int read_BufferSize = 0;
-	int read_BufferIndex = 0;
-	char c;
-            /* if there's space in the unget buffer, add the character to it */
-	if (read_BufferIndex >= read_BufferSize)
+	int written = 0, i = 0, j;
+	char *arg_str;
+
+	va_list args;
+	va_start(args, format);
+
+	if (str == NULL || format == NULL || size == 0)
+		return (-1);
+
+	while (format[i] != '\0' && written < size - 1)
 	{
-		 read_BufferSize = fread(my_read_buffer, 1, MAX_COMMAND_LENGTH, stream);
-		 read_BufferIndex = 0;
+		if (format[i] == '%' && format[i + 1] == 's')
+		{
+			arg_str = va_arg(args, char *);
+			if (arg_str != NULL)
+			{
+				j = 0;
+				while (arg_str[j] != '\0' && written < size - 1)
+				{
+					str[written++] = arg_str[j++];
+				}
+			}
+			i += 2;
+		}
+		else
+		{
+			str[written++] = format[i++];
+		}
 	}
-
-	i = 0;
-
-	while (i < size - 1 && read_BufferIndex < read_BufferSize)
-	{
-               /* Read a character from the read buffer */
-		c = my_read_buffer[read_BufferIndex++];
-               /* Copy the character to the output string */
-		str[i++] = c;
-
-		if (c == '\n')
-			break;
-	}
-	str[i] = '\0';
-
-	return (i > 0 ? str : NULL);
+	str[written] = '\0';
+	va_end(args);
+	return (written);
 }

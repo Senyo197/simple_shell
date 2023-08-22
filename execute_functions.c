@@ -1,7 +1,7 @@
 #include  "shell.h"
 
 /**
-  * execute_command - function that exe a command
+  *execute_command_line - function that exe a command
   *@command: command to be entered
   *@argv: array of commands to be entered
   *Return: always 0
@@ -20,22 +20,29 @@ int execute_command_line(char *command, char *argv[])
 			_exit(1);  /* Exit the child process */
 		}
 	}
-	else if (child_pid > 0)
-	{  /* Parent process */
+	else if (child_pid > 0) /* Parent process */
+	{ /* Wait for child process */
 		if (waitpid(child_pid, &status, 0) == -1)
-		{  /* Wait for child process */
-			write(STDERR_FILENO, "waitpid error\n", 14);  /* Print error if waitpid fails */
+		{  /* Print error if waitpid fails */
+			write(STDERR_FILENO, "waitpid error\n", 14);
 		}
 	}
 	else
-	{
-		write(STDERR_FILENO, "Fork error\n", 11);  /* Print error if fork fails */
+	{ /* Print error if fork fails */
+		write(STDERR_FILENO, "Fork error\n", 11);
 	}
 
 	return (0);
 }
 
 
+/**
+  *search_execute - Search for path to execute
+  *@command: Command to be executed
+  *@argv: Array of command line arguments
+  *@path_env: path environment to be searched
+  *Return: 0 for successful execution, 1 for otherwise
+  */
 int search_execute(char *command, char *argv[], char *path_env)
 {
 	char full_path[MAX_COMMAND_LENGTH];
@@ -44,7 +51,7 @@ int search_execute(char *command, char *argv[], char *path_env)
 	path = _strtok(path_env, ":");
 	while (path != NULL)
 	{
-		snprintf(full_path, sizeof(full_path), "%s/%s", path, command);
+		_snprintf(full_path, sizeof(full_path), "%s/%s", path, command);
 
 		if (access(full_path, X_OK) == 0)
 		{
@@ -59,7 +66,13 @@ int search_execute(char *command, char *argv[], char *path_env)
 	return (1);
 }
 
-
+/**
+  *execute_command - Function to execute the command
+  *@command: Command to be executed
+  *@argv: Array of command line arguments
+  *@path_env: path environment to be searched
+  *Return: 0 for successful execution, 1 for otherwise
+  */
 int execute_command(char *command, char *argv[], char *path_env)
 {
 	if (_strchr(command, '/') != NULL)

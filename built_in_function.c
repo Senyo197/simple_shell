@@ -1,8 +1,11 @@
 #include "shell.h"
+
 /**
   *execute_builtin - function that executes a built-in command
   *
   *@command: The command to be executed
+  *
+  *@args: Array of  character of arguments
   *
   *Return: 0 if successful execution of the built-in
   *        command, -1 otherwise
@@ -13,7 +16,7 @@ int execute_builtin(char *command, char *args[])
 	char **env_ptr;
 	int exit_status;
 
-	if(str_compare(command, "exit") == 1)
+	if (str_compare(command, "exit") == 1)
 	{
 		exit_status = 0;
 		if (args[1] != NULL)
@@ -21,7 +24,7 @@ int execute_builtin(char *command, char *args[])
 		exit(exit_status);
 	}
 
-	if(str_compare(command, "env") == 1)
+	if (str_compare(command, "env") == 1)
 	{
 		env_ptr = environ;
 		while (*env_ptr != NULL)
