@@ -39,6 +39,8 @@ int str_compare(const char *string1, const char *string2);
 char *_strtok(char *str, const char *delim);
 size_t _strlen(const char *str);
 char *_strchr(char *s, char c);
+char *_strncpy(char *dest, const char *src, size_t n);
+unsigned int _strspn(char *s, char *bytes);
 
 /* System functions */
 int _feof(void);
