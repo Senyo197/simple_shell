@@ -17,21 +17,15 @@ void print_prompt(void)
   */
 int main(int argc, char *argv[])
 {
-	char *command = NULL;
-	char *args[MAX_ARGUMENTS];
+	char command[MAX_COMMAND_LENGTH];
 
 	(void)argc;
-	(void)argv;
 
 	while (1)
 	{
 		read_command(command);
 
-		if (command)
-		{
-			parse_arguments(command, args);
-			execute_command_line(args[0], args;
-		}
+		execute_command_line(command, argv);
 	}
 
 	return (0); /* Return 0 to indicate successful execution */

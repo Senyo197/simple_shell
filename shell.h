@@ -2,6 +2,7 @@
 #define SHELL_H
 
 /* System header file */
+#include <string.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdarg.h>
