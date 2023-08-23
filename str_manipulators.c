@@ -36,6 +36,32 @@ size_t _strcspn(const char *str, const char *reject)
 }
 
 
+/**
+  *str_compare - To compare two strings
+  *@string1: First string to be compared
+  *@string2: Second string to be compared
+  *Return: 1 if strings matches, 0 otherwise
+  */
+int str_compare(const char *string1, const char *string2)
+{
+	if (string1 == NULL || string2 == NULL)
+		return (0); /* Return 0 (FALSE), if any of the strings is null */
+
+	while (*string1 != '\0' && *string2 != '\0')
+	{
+		if (*string1 != *string2)
+			return (0); /* Return 0 (FALSE), if the characters */
+		/* in the strings differ */
+
+		string1++;
+		string2++;
+	}
+
+	if (*string1 == *string2)
+		return (1); /* Return 1 (TRUE), if the strings are the same */
+
+	return (0); /* Return 0 (FALSE), if the strings are different */
+}
 
 
 /**

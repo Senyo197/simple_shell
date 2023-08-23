@@ -29,7 +29,9 @@ int main(int argc, char *argv[])
 		read_command(command);
 
 		parse_arguments(command, args);
-		execute_command(args[0], args, path_env);
+
+		if (execute_builtin(args[0], args) == -1)
+			execute_command(args[0], args, path_env);
 	}
 
 	return (0); /* Return 0 to indicate successful execution */
