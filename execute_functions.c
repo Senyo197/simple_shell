@@ -16,8 +16,8 @@ int execute_command_line(char *command, char *argv[])
 	{                /* Child process */
 		if (execve(command, argv, environ) == -1)
 		{       /* Execute the command */
-			write(STDERR_FILENO, argv[0], _strlen(argv[0]));
-			write(STDERR_FILENO, ": No such file or directory\n", 28);
+			write(2, argv[0], _strlen(argv[0]));
+			write(2, ": No such file or directory\n", 28);
 			_exit(1);  /* Exit the child process */
 		}
 	}
@@ -25,14 +25,14 @@ int execute_command_line(char *command, char *argv[])
 	{ /* Wait for child process */
 		if (waitpid(child_pid, &status, 0) == -1)
 		{  /* Print error if waitpid fails */
-			write(STDERR_FILENO, argv[0], _strlen(argv[0]));
-			write(STDERR_FILENO, ": waitpid error\n", 17);
+			write(2, argv[0], _strlen(argv[0]));
+			write(2, ": waitpid error\n", 17);
 		}
 	}
 	else
 	{ /* Print error if fork fails */
-		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
-		write(STDERR_FILENO, ": Fork error\n", 13);
+		write(2, argv[0], _strlen(argv[0]));
+		write(2, ": Fork error\n", 13);
 	}
 
 	return (0);

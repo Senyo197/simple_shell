@@ -5,7 +5,7 @@
   */
 void print_prompt(void)
 {/* Print the command prompt */
-	write(STDOUT_FILENO, PROMPT, sizeof(PROMPT) - 1);
+	write(1, PROMPT, sizeof(PROMPT) - 1);
 }
 
 
