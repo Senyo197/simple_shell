@@ -13,6 +13,7 @@
 
 int execute_builtin(char *command, char *args[])
 {
+	char **env_ptr;
 	int exit_status;
 
 	if (str_compare(command, "exit") == 1)
@@ -21,6 +22,19 @@ int execute_builtin(char *command, char *args[])
 		if (args[1] != NULL)
 			exit_status = _atoi(args[1]);
 		exit(exit_status);
+	}
+
+	if (str_compare(command, "env") == 1)
+	{
+		env_ptr = environ;
+		while (*env_ptr != NULL)
+		{
+			write(1, *env_ptr, _strlen(*env_ptr));
+			write(1, "\n", 1);
+			env_ptr++;
+		}
+
+		return (0);
 	}
 
 	return (-1);
