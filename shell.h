@@ -2,24 +2,18 @@
 #define SHELL_H
 
 /* System header file */
+#include <stdio.h>
+#include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stddef.h>
-#include <string.h>
-#include <unistd.h>
 #include <sys/wait.h>
-#include <stdio.h>
-#include <errno.h>
 
 /* MACROS */
 #define PROMPT "$ "
 #define MAX_COMMAND_LENGTH 1024
 #define MAX_ARGUMENTS 10
-#define MAX_UNGETC_BUFFER 1
 #define BUFFER_SIZE 128
-
-#define MAX_WORDS 100
-#define MAX_WORD_LENGTH 50
 
 /* System Calls */
 extern char **environ;
@@ -47,20 +41,18 @@ unsigned int _strspn(const char *s, const char *bytes);
 /* System functions */
 char *_getenv(const char *name);
 int _snprintf(char *str, ssize_t size, const char *format, ...);
-int _feof(void);
-int _fgetc(FILE *str);
-char *_fgets(char *str, int size, FILE *stream);
-int _ungetc(int c, FILE *str);
 
 /* Parse function  */
 void parse_arguments(char *command, char *args[]);
-char *allocate_and_copy(const char *source);
-void free_arguments(char *argv[], int count);
 
 /* Functions to print the prompt */
 void print_prompt(void);
 int main(int argc, char *argv[]);
 
+/* Function to execute built_in(s) */
 int execute_builtin(char *command, char *args[]);
-ssize_t read_more(char **lineptr, size_t *n, FILE *stream);
+
+/* Change string to integer function */
+int _atoi(const char *str);
+
 #endif /* SHELL_H */

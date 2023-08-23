@@ -41,7 +41,7 @@ void read_command(char *command)
 	else if (read_bytes >= MAX_COMMAND_LENGTH)
 		write(STDERR_FILENO, "Command not found\n", 18);
 	else
-		strncpy(command, line_buffer, MAX_COMMAND_LENGTH);
+		_strncpy(command, line_buffer, MAX_COMMAND_LENGTH);
 }
 
 

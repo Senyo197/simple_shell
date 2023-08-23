@@ -20,7 +20,7 @@ int execute_builtin(char *command, char *args[])
 	{
 		exit_status = 0;
 		if (args[1] != NULL)
-			exit_status = atoi(args[1]);
+			exit_status = _atoi(args[1]);
 		exit(exit_status);
 	}
 
