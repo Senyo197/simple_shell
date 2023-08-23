@@ -14,13 +14,13 @@ void parse_arguments(char *command, char *args[])
 	int arg_count = 0;
 	char *token;
 
-	token = _strtok(command, " ");
+	token = strtok(command, " ");
 
 	while (token != NULL && arg_count < MAX_ARGUMENTS - 1)
 	{
 		remove_newline(token);
 		args[arg_count++] = token;
-		token = _strtok(NULL, " ");
+		token = strtok(NULL, " ");
 
 	}
 
