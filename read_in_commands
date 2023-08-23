@@ -32,32 +32,16 @@ ssize_t _getline(char *buffer, size_t size, int fd)
   */
 void read_command(char *command)
 {
-/*	char line_buffer[BUFFER_SIZE];*/
-	ssize_t read_bytes;
-
-	if (isatty(STDIN_FILENO))
-	{
-		print_prompt();
-		read_bytes = _getline(command, MAX_COMMAND_LENGTH, STDIN_FILENO);
-	}
-	else
-	{
-		read_bytes = _getline(command, MAX_COMMAND_LENGTH, STDIN_FILENO);
-		if (read_bytes == 0)
-			exit(0);
-	}
-
+	char line_buffer[BUFFER_SIZE];
+	ssize_t read_bytes = _getline(line_buffer, sizeof(line_buffer),
+			STDIN_FILENO);
 
 	if (read_bytes == -1)
-	{
 		write(STDERR_FILENO, "Getline Error\n", 14);
-	}
 	else if (read_bytes >= MAX_COMMAND_LENGTH)
-	{
 		write(STDERR_FILENO, "Command not found\n", 18);
-	}
 	else
-		remove_newline(command);
+		_strncpy(command, line_buffer, MAX_COMMAND_LENGTH);
 }
 
 
