@@ -30,8 +30,10 @@ int main(int argc, char *argv[])
 
 		parse_arguments(command, args);
 
-		if (execute_builtin(args[0], args) == -1)
-			execute_command(args[0], args, path_env);
+		if (str_compare(command, "exit") == 1)
+			return (1);
+
+		execute_command(args[0], args, path_env);
 	}
 
 	return (0); /* Return 0 to indicate successful execution */
