@@ -37,6 +37,7 @@ size_t _strcspn(const char *str, const char *reject)
 
 
 
+
 /**
   *_strlen - function that calculates the length of a string
   *@str: the string
@@ -55,3 +56,48 @@ size_t _strlen(const char *str)
 }
 
 
+/**
+  *_strchr - function that locate a character in a string
+  *
+  *@c: The character to be located
+  *@s: Pointer to the string to be searched
+  *Return: Pointer to the first occurrence of the character c
+  *        or NULL if the character is not found
+  */
+char *_strchr(char *s, char c)
+{
+	while (*s != '\0')
+	{
+		if (*s == c)
+			return (s);
+		s++;
+	}
+
+	if (*s == c)
+		return (s);
+
+	return (NULL);
+}
+
+
+/**
+  *_strncmp - Compares two strings
+  *@s1: first string
+  *@s2: Second string
+  *@n: Maximum number of characters to be compared
+  *Return: Difference between non-matching characters
+  */
+int _strncmp(const char *s1, const char *s2, size_t n)
+{
+	while (n > 0 && *s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+		n--;
+	}
+
+	if (n == 0)
+		return (0);
+	else
+		return (*s1 - *s2);
+}

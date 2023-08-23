@@ -11,7 +11,7 @@
 #include <sys/wait.h>
 
 /* MACROS */
-#define PROMPT "#cisfun$ "
+#define PROMPT ":) "
 #define MAX_COMMAND_LENGTH 1024
 #define MAX_ARGUMENTS 10
 #define BUFFER_SIZE 128

@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 {
 	char command[MAX_COMMAND_LENGTH];
 	char *args[MAX_ARGUMENTS];
+	char *path_env = _getenv("PATH");
 
 	(void)argc;
 	(void)argv;
@@ -28,7 +29,7 @@ int main(int argc, char *argv[])
 		read_command(command);
 
 		parse_arguments(command, args);
-		execute_command_line(args[0], args);
+		execute_command(args[0], args, path_env);
 	}
 
 	return (0); /* Return 0 to indicate successful execution */
